@@ -1,0 +1,43 @@
+-- Prepare a report showing weekly pay
+/*
+One common use of window functions is to include a related aggregate value in each row of a result.
+
+Let's construct a report showing our small local restaurant's salary data, along with the total amount of salary represented by each department.
+
+Your task: Return a result showing the fields EmployeeID, Department, Position, WeeklyPay, and the total of the weekly pay for each department with the name DeptTotal. Sort the results by department, then by WeeklyPay.
+*/
+--Solution:
+
+-- SQL request(s)​​​​​​‌​‌‌‌​​‌​​​​‌‌‌​​‌​​​​‌‌​ below
+SELECT
+    employeeid,
+    department,
+    position,
+    weeklypay,
+    sum(WEEKLYPAY) over(partition by department) as depttotal
+FROM Employees
+ORDER BY department, weeklypay
+
+Correct output
+17 rows
+--------------------------------------------------------------------------
+| EMPLOYEEID | DEPARTMENT  | POSITION            | WEEKLYPAY | DEPTTOTAL |
+--------------------------------------------------------------------------
+| 109        | Culinary    | Prep Chef I         | 1250      | 11730     |
+| 110        | Culinary    | Prep Chef I         | 1300      | 11730     |
+| 111        | Culinary    | Prep Chef II        | 1300      | 11730     |
+| 103        | Culinary    | Sous Chef           | 2500      | 11730     |
+| 104        | Culinary    | Pizza Chef          | 2500      | 11730     |
+| 102        | Culinary    | Head Chef           | 2880      | 11730     |
+| 115        | Delivery    | Delivery Driver I   | 860       | 1720      |
+| 116        | Delivery    | Delivery Driver I   | 860       | 1720      |
+| 107        | Executive   | Executive Assistant | 1900      | 9500      |
+| 100        | Executive   | Co-Founder          | 3800      | 9500      |
+| 101        | Executive   | Co-Founder          | 3800      | 9500      |
+| 113        | Hospitality | Waitstaff           | 900       | 3210      |
+| 114        | Hospitality | Waitstaff           | 910       | 3210      |
+| 112        | Hospitality | Head Waiter         | 1400      | 3210      |
+| 108        | Marketing   | Digital Marketing   | 1400      | 4920      |
+| 106        | Marketing   | Graphic Artist      | 1600      | 4920      |
+| 105        | Marketing   | Head of Marketing   | 1920      | 4920      |
+--------------------------------------------------------------------------
