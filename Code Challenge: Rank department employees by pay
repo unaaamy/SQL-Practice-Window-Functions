@@ -1,0 +1,62 @@
+/*
+Rank values in result
+
+Window functions allow us to assign a numerical ranking to values within a group.
+
+You're given a table of Employees:
+Employees
+EmployeeID (int)
+FirstName (varchar(255))
+LastName (varchar(255))
+Department (varchar(255))
+Position (varchar(255))
+WeeklyPay (int)
+Username (varchar(255))
+
+Your tasks:
+Return a result that shows the columns FirstName, LastName, WeeklyPay, Department, and a column DeptRank showing how each employee's pay ranks within their department.
+In the ranking, '1' should represent the highest value or values in that group, 2 should represent the next highest value or values, and so on.
+Ensure that there are no gaps in the ranking sequence (e.g., 1, 3, 4, 5) but they can be duplicated in the case of a 'tie' (e.g., 1, 2, 2, 3, 4).
+Sort the result by Department and then by DeptRank.
+
+Result
+A result with five columns in the order listed above. Rows sorted as described above.
+Constraints
+
+The table contains one or more rows.
+*/
+
+--Solution:
+-- SQL request(s)​​​​​​‌​‌‌‌​​‌​​​​‌‌‌​​‌‌‌‌​‌‌‌ below
+SELECT
+    firstname,
+    lastname,
+    weeklypay,
+    department,
+    dense_rank() over(partition by department order by weeklypay desc) as deptrank
+FROM Employees
+ORDER BY department, deptrank
+
+Correct output
+17 rows
+----------------------------------------------------------------
+| FIRSTNAME | LASTNAME    | WEEKLYPAY | DEPARTMENT  | DEPTRANK |
+----------------------------------------------------------------
+| Iris      | Galea       | 2880      | Culinary    | 1        |
+| Mickie    | Tschirschky | 2500      | Culinary    | 2        |
+| Witty     | Phear       | 2500      | Culinary    | 2        |
+| Earlie    | Digwood     | 1300      | Culinary    | 3        |
+| Lily      | Cornelis    | 1300      | Culinary    | 3        |
+| Jolee     | Camelin     | 1250      | Culinary    | 4        |
+| Alia      | Houliston   | 860       | Delivery    | 1        |
+| Dean      | Dowbekin    | 860       | Delivery    | 1        |
+| Nadia     | Arbore      | 3800      | Executive   | 1        |
+| Timothy   | Arbore      | 3800      | Executive   | 1        |
+| Tony      | Kirwan      | 1900      | Executive   | 2        |
+| Charlton  | Corde       | 1400      | Hospitality | 1        |
+| Nickola   | Brophy      | 910       | Hospitality | 2        |
+| Ginnie    | Leavesley   | 900       | Hospitality | 3        |
+| Mel       | Lambole     | 1920      | Marketing   | 1        |
+| Gunar     | Bilyard     | 1600      | Marketing   | 2        |
+| Fern      | Snoday      | 1400      | Marketing   | 3        |
+----------------------------------------------------------------
