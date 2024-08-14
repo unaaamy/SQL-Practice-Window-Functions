@@ -1,7 +1,7 @@
 -- SQL request(s)​​​​​​‌​‌‌‌​​‌​​‌​​​​‌​​‌​‌​‌​‌ below
 SELECT
     o.ORDERID,
-    sum(d.PRICE),
+    sum(d.PRICE) as thisorderprice,
     sum(d.PRICE) - lag(sum(d.PRICE)) over(order by o.ORDERDATE) as DiffFromPrev
 FROM orders o
 JOIN ordersdishes od on o.ORDERID = od.ORDERID
